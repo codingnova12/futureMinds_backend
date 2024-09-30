@@ -10,7 +10,7 @@ import { CoursesModule } from './courses/courses.module';
   imports: [
     UserModule,
     MongooseModule.forRoot(
-      'mongodb://mongo:ncZzqTRHKmYsOAZvKXJkGDRBgkdMvDjT@autorack.proxy.rlwy.net:12535',
+      'mongodb+srv://bedomohamed307:bedo3077@benova.vakc3.mongodb.net/',
       { dbName: 'benova' },
     ),
     SellerModule,
