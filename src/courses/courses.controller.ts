@@ -11,6 +11,7 @@ import { CoursesService } from './courses.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 
+
 @Controller('courses')
 export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}
@@ -24,6 +25,11 @@ export class CoursesController {
   @Get()
   findAll() {
     return this.coursesService.findAll();
+  }
+  @Get("search/:keywords")
+  searchCourses(@Param("keywords") keywords) {
+   
+    return this.coursesService.searchCourses(keywords);
   }
 
   @Get(':id')

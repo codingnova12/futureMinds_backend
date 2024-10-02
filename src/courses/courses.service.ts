@@ -17,6 +17,12 @@ export class CoursesService {
   findAll() {
     return this.courseModel.find({});
   }
+  searchCourses(keywords:string){
+    var regexQuery = {
+      title: new RegExp(keywords, 'i')
+    }
+    return this.courseModel.find(regexQuery)
+  }
 
   findOne(id: string) {
     return this.courseModel.findById(id);
