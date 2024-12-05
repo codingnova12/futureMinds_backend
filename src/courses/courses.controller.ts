@@ -14,14 +14,15 @@ import { CoursesService } from './courses.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Express } from 'express'
+import 'multer';
+import { Express } from 'express';
 @Controller('courses')
 export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}
 
   @Post()
   @UseInterceptors(FileInterceptor('thumbnail', { dest: 'courses_thumbnails' }))
-   create(
+  create(
     @UploadedFile(
       new ParseFilePipe({
         // validators: [new FileTypeValidator({ fileType: 'video/mp4' })],
@@ -31,10 +32,7 @@ export class CoursesController {
     @Body()
     course: CreateCourseDto,
   ) {
-   return  this.coursesService.create(
-      thumbnail,
-      course
-    );
+    return this.coursesService.create(thumbnail, course);
   }
 
   @Get()

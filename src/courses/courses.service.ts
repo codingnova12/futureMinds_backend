@@ -9,6 +9,7 @@ import { StripeService } from 'src/payments/stripe/stripe.service';
 import { createStripeProductDto } from 'src/payments/stripe/dto/createProduct.dto';
 import mongoose from 'mongoose';
 import { Express } from 'express';
+import 'multer';
 @Injectable()
 export class CoursesService {
   constructor(

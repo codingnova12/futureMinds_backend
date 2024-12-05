@@ -7,6 +7,7 @@ import {
 } from 'cloudinary';
 import { CloudinaryConfigService } from 'src/infrastructure/configration/cloudinaryConfig.service';
 import { Express } from 'express';
+import 'multer';
 @Injectable()
 export class CloudinaryService {
   constructor(private readonly cloudinaryConfig: CloudinaryConfigService) {}
