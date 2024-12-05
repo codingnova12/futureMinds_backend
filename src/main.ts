@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { AppConfigService } from './infrastructure/configration/appconfig.service';
+import { AppConfigService } from './infrastructure/configration/appConfig.service';
 import { AllExceptionsFilter } from './infrastructure/filters/allExceptions.filter';
 import { CloudinaryService } from './shared/services/cloudinary/cloudinary.service';
 import { ValidationPipe } from '@nestjs/common';

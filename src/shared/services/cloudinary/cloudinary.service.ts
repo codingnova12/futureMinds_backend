@@ -6,13 +6,10 @@ import {
   UploadResponseCallback,
 } from 'cloudinary';
 import { CloudinaryConfigService } from 'src/infrastructure/configration/cloudinaryConfig.service';
-import { ExceptionsService } from 'src/infrastructure/exceptions/exceptions.service';
+import { Express } from 'express';
 @Injectable()
 export class CloudinaryService {
-  constructor(
-    private exceptionsService: ExceptionsService,
-    private readonly cloudinaryConfig: CloudinaryConfigService,
-  ) {}
+  constructor(private readonly cloudinaryConfig: CloudinaryConfigService) {}
   public init() {
     cloudinary.config({
       cloud_name: this.cloudinaryConfig.getCloudName(),
@@ -24,7 +21,7 @@ export class CloudinaryService {
     file: Express.Multer.File,
     options?: UploadApiOptions,
     callback?: UploadResponseCallback,
-  ): Promise<UploadApiResponse>{
+  ): Promise<UploadApiResponse> {
     return await cloudinary.uploader.upload(file.path, options, callback);
   }
 }

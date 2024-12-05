@@ -8,6 +8,7 @@ import { ExceptionsService } from 'src/infrastructure/exceptions/exceptions.serv
 import { StripeService } from 'src/payments/stripe/stripe.service';
 import { createStripeProductDto } from 'src/payments/stripe/dto/createProduct.dto';
 import mongoose from 'mongoose';
+import { Express } from 'express';
 @Injectable()
 export class CoursesService {
   constructor(

@@ -14,8 +14,7 @@ import { CoursesService } from './courses.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Course } from './course';
-
+import { Express } from 'express'
 @Controller('courses')
 export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}

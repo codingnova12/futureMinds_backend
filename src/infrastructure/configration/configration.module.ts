@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { configrations } from './config';
-import { AppConfigService } from './appconfig.service';
-import { DbConfigService } from './dbconfig.service';
+import { AppConfigService } from './appConfig.service';
+import { DbConfigService } from './dbConfig.service';
 import { CloudinaryConfigService } from './cloudinaryConfig.service';
 
 @Module({

@@ -5,7 +5,7 @@ import { UserModule } from './user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SellerModule } from './seller/seller.module';
 import { CoursesModule } from './courses/courses.module';
-import { AppConfigService } from './infrastructure/configration/appconfig.service';
+import { AppConfigService } from './infrastructure/configration/appConfig.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ConfigrationModule } from './infrastructure/configration/configration.module';
 import { ExceptionsModule } from './infrastructure/exceptions/exceptions.module';
