@@ -6,29 +6,44 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
+  UploadedFile,
+  ParseFilePipe,
 } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
-
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Course } from './course';
 
 @Controller('courses')
 export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}
 
   @Post()
-  create(@Body() createCourseDto: any) {
-    console.log(createCourseDto);
-    return this.coursesService.create(createCourseDto);
+  @UseInterceptors(FileInterceptor('thumbnail', { dest: 'courses_thumbnails' }))
+   create(
+    @UploadedFile(
+      new ParseFilePipe({
+        // validators: [new FileTypeValidator({ fileType: 'video/mp4' })],
+      }),
+    )
+    thumbnail: Express.Multer.File,
+    @Body()
+    course: CreateCourseDto,
+  ) {
+   return  this.coursesService.create(
+      thumbnail,
+      course
+    );
   }
 
   @Get()
   findAll() {
     return this.coursesService.findAll();
   }
-  @Get("search/:keywords")
-  searchCourses(@Param("keywords") keywords) {
-   
+  @Get('search/:keywords')
+  searchCourses(@Param('keywords') keywords) {
     return this.coursesService.searchCourses(keywords);
   }
 
