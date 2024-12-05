@@ -66,8 +66,10 @@ export class CoursesService {
     query: Partial<ICourse>,
   ) {
     try {
-  
-      return (await this.courseModel.updateOne({_id:courseId.toString()},query))
+      return await this.courseModel.updateOne(
+        { _id: courseId.toString() },
+        query,
+      );
     } catch (err) {
       console.log(err);
     }

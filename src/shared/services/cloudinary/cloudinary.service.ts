@@ -5,7 +5,6 @@ import {
   UploadApiResponse,
   UploadResponseCallback,
 } from 'cloudinary';
-import { resolve } from 'path';
 import { CloudinaryConfigService } from 'src/infrastructure/configration/cloudinaryConfig.service';
 import { ExceptionsService } from 'src/infrastructure/exceptions/exceptions.service';
 @Injectable()
