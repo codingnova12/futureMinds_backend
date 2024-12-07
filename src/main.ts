@@ -11,7 +11,7 @@ async function bootstrap() {
   const appConfigService = app.get(AppConfigService);
   const cloudinaryServ = app.get(CloudinaryService);
   app.enableCors({ origin: '*' });
-  const port = 8080;
+  const port = process.env.PORT;
   cloudinaryServ.init();
   await app.listen(port);
 }
