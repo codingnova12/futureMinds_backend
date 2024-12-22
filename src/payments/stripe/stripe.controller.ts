@@ -27,7 +27,6 @@ export class StripeController {
     private ordersService: OrdersService,
     private coursesService: CoursesService,
   ) {}
-  @UseGuards(JwtAuthGuard)
   @Post('checkout-session')
   async checkoutSession(
     @Body() session: CreateCheckoutSessionDto,
@@ -63,12 +62,16 @@ export class StripeController {
     if (event.type === 'checkout.session.completed') {
       const session: Stripe.Checkout.Session = event.data.object;
       const metadata = session.metadata;
-      const paymentIntent = await this.stripeService.getPaymentIntentById(session.payment_intent as string);
-      const charge=await this.stripeService.getChargeById(paymentIntent.latest_charge as string)
+      const paymentIntent = await this.stripeService.getPaymentIntentById(
+        session.payment_intent as string,
+      );
+      const charge = await this.stripeService.getChargeById(
+        paymentIntent.latest_charge as string,
+      );
       this.ordersService.updateOrderByOrderId(metadata.orderId, {
         amountSubtotal: session.amount_subtotal,
         paymentIntent: session.payment_intent as string,
-        receiptUrl:charge.receipt_url,
+        receiptUrl: charge.receipt_url,
         status: 'Success',
       });
     }
