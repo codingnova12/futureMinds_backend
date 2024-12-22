@@ -12,6 +12,11 @@ import { ExceptionsModule } from './infrastructure/exceptions/exceptions.module'
 import { CloudinaryService } from './shared/services/cloudinary/cloudinary.service';
 import { StripeModule } from './payments/stripe/stripe.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { AuthModule } from './auth/auth.module';
+import { InstructorsModule } from './instructors/instructors.module';
+import { OrdersModule } from './orders/orders.module';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
@@ -26,11 +31,15 @@ import { DashboardModule } from './dashboard/dashboard.module';
 
       inject: [ConfigService],
     }),
+   
     SellerModule,
     CoursesModule,
     StripeModule,
     ConfigrationModule,
     DashboardModule,
+    AuthModule,
+    InstructorsModule,
+    OrdersModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppConfigService, CloudinaryService],

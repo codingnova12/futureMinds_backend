@@ -16,5 +16,6 @@ import { StripeModule } from 'src/payments/stripe/stripe.module';
   ],
   controllers: [CoursesController],
   providers: [CoursesService],
+  exports: [CoursesService],
 })
 export class CoursesModule {}

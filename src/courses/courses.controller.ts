@@ -40,8 +40,12 @@ export class CoursesController {
     return this.coursesService.findAll();
   }
   @Get('search/:keywords')
-  searchCourses(@Param('keywords') keywords) {
-    return this.coursesService.searchCourses(keywords);
+  async searchCourses(@Param('keywords') keywords) {
+    if (keywords == '*') return await this.coursesService.searchCourses({});
+    var regexQuery = {
+      title: new RegExp(keywords, 'i'),
+    };
+    return await this.coursesService.searchCourses(regexQuery);
   }
 
   @Get(':id')

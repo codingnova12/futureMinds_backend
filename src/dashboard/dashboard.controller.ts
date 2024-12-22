@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  BadRequestException,
 } from '@nestjs/common';
 import { DashboardService } from './dashboard.service';
 import { CreateDashboardDto } from './dto/create-dashboard.dto';
@@ -26,12 +27,11 @@ export class DashboardController {
   async getHomeData(): Promise<GetHomeDataResponseDto> {
     const { lastTransaction } = await this.dashboardService.getHomeData();
     return {
-      data: {
+     
         lastTransaction: {
           amount_received: lastTransaction.amount_received,
           created_at: secondsToDate(lastTransaction.created),
         },
-      },
     };
   }
 

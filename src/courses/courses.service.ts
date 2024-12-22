@@ -76,19 +76,29 @@ export class CoursesService {
       console.log(err);
     }
   }
-
-  findAll() {
-    return this.courseModel.find({});
+  getPriceIdByCourseId(courseId: string): Promise<string | null> {
+    return this.courseModel
+      .findById(courseId)
+      .select('stripeProductPriceId -_id')
+      .exec()
+      .then((result) => {
+        return result.stripeProductPriceId;
+      }) as Promise<string>;
   }
-  searchCourses(keywords: string) {
-    var regexQuery = {
-      title: new RegExp(keywords, 'i'),
-    };
-    return this.courseModel.find(regexQuery);
+  findAll() {
+    return this.courseModel
+      .find({})
+      .populate({ path: 'author', select: 'firstName lastName' });
+  }
+  searchCourses(query:{}) {
+  
+    return this.courseModel.find(query);
   }
 
   findOne(id: string) {
-    return this.courseModel.findById(id);
+    return this.courseModel
+      .findById(id)
+      .populate({ path: 'author', select: 'firstName lastName' });
   }
 
   update(id: number, updateCourseDto: UpdateCourseDto) {

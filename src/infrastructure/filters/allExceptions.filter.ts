@@ -1,30 +1,33 @@
-import { ArgumentsHost, ExceptionFilter, HttpException, HttpStatus } from "@nestjs/common";
-interface IError {
-    message: string;
-    code_error: string;
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
+import { ErrorResponse } from '../httpResponses/errorResponse';
+
+export interface HttpExceptionError {
+  statusCode: number;
+  message: string | [];
+  error?: string;
+}
+@Catch(HttpException)
+export class AllExceptionsFilter implements ExceptionFilter {
+  catch(exception: HttpException, host: ArgumentsHost) {
+    const ctx = host.switchToHttp();
+    const response = ctx.getResponse();
+    const request: any = ctx.getRequest();
+    const status = exception.getStatus();
+    const error = exception.getResponse() as HttpExceptionError;
+    console.log(error);
+    const responseData = {
+      code: error.error ?? (error.message as string),
+      message: error.message ?? null,
+      path: request.url,
+      timestamp: new Date().toISOString(),
+    };
+
+    response.status(status).json(new ErrorResponse(status, responseData));
   }
-export class AllExceptionsFilter implements ExceptionFilter{
-    catch(exception: any, host: ArgumentsHost) {
-        const ctx = host.switchToHttp();
-        const response = ctx.getResponse();
-        const request: any = ctx.getRequest();
-    
-        const status = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
-        const message =
-          exception instanceof HttpException
-            ? (exception.getResponse() as IError)
-            : { message: (exception as Error).message, code_error: null };
-    
-        const responseData = {
-          ...{
-            statusCode: status,
-            timestamp: new Date().toISOString(),
-            path: request.url,
-          },
-          ...message,
-        };
-    
-    
-        response.status(status).json(responseData);
-      }
 }
